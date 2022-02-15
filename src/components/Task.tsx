@@ -5,18 +5,12 @@ export interface Task {
   name: string;
 }
 
-function TaskElement({
-  task,
-  delete: onClick,
-}: {
-  task: Task;
-  delete: () => void;
-}) {
+function TaskElement({ task, onDelete }: { task: Task; onDelete: () => void }) {
   return (
     <React.Fragment>
       <li>
         {task.name}
-        <button onClick={onClick}>Delete this</button>
+        <button onClick={onDelete}>Delete this</button>
       </li>
     </React.Fragment>
   );

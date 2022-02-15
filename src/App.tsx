@@ -8,12 +8,7 @@ function App() {
   const [id, setId] = useState(0);
 
   function addTask(t: Task) {
-    setId(id + 1);
-    const tt = {
-      ...t,
-      id: id + 1,
-    };
-    setTasks([...tasks, tt]);
+    setTasks([...tasks, t]);
   }
   const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setTaskName(e.target.value);
@@ -21,10 +16,12 @@ function App() {
   const onClick = () => {
     const task: Task = {
       name: taskName,
-      id: 0,
+      id: id,
     };
-    setTaskName("");
+    setId(id + 1);
     addTask(task);
+    // Clear task name
+    setTaskName("");
   };
   const deleteTask = function (id: number): void {
     setTasks(tasks.filter((t) => t.id !== id));
@@ -34,7 +31,7 @@ function App() {
       <input type="text" value={taskName} onChange={onChange} />
       <button onClick={onClick}>add</button>
       {tasks.map((t) => (
-        <TaskElement key={t.id} task={t} delete={() => deleteTask(t.id)} />
+        <TaskElement key={t.id} task={t} onDelete={() => deleteTask(t.id)} />
       ))}
     </div>
   );
